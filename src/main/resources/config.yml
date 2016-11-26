@@ -1,0 +1,38 @@
+#Multiple of 9;
+inv-size: 9
+total-servers: 3
+inv-name: '&2Servers:'
+join-compass: true
+compass-name: '&2Servers'
+player-slot: 4
+compass-drop: false
+compass-world: world
+
+server:
+   1:
+      itemid: 2
+      itemamount: 1
+      display: '&aSurvival'
+      activatelore: true
+      bungee-connect: 'SURVIVAL'
+      invslot: 0
+      lore:
+      - 'Survival server.'
+   2:
+      itemid: 268
+      itemamount: 1
+      display: '&cKitPVP'
+      activatelore: true
+      bungee-connect: 'KITPVP'
+      invslot: 1
+      lore:
+      - 'KitPVP server.'
+   3:
+      itemid: 95
+      itemamount: 64
+      display: '&aCreative'
+      activatelore: true
+      bungee-connect: 'CREATIVE'
+      invslot: 2
+      lore:
+      - 'Creative server.'

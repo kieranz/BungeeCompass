@@ -1,0 +1,9 @@
+main: me.netindev.Main
+version: 1.3b
+name: BungeeCompass
+author: netindev
+description: 'Players switch servers using bungeecord.'
+commands:
+   bungeecompass:
+      aliases: [bcs, bcompass]
+      description: 'Main command.'
