@@ -50,44 +50,42 @@ public class Eventos implements Listener {
 
 	Main plugin;
 
-	public Eventos(Main gf) {
-		plugin = gf;
+	public Events(Main main) {
+		plugin = main;
 	}
 
 	@EventHandler
-	private void aoClicar(InventoryClickEvent evento) {
-		Player jogador = (Player) evento.getWhoClicked();
-		if (evento.getInventory().getName().equals(Main.plugin.getConfig().getString("inv-name").replace("&", "\u00a7"))
+	private void onClickInventory(InventoryClickEvent event) {
+		Player player = (Player) event.getWhoClicked();
+		if (event.getInventory().getName().equals(Main.plugin.getConfig().getString("inv-name").replace("&", "\u00a7"))
 				&& evento.getCurrentItem() != null && evento.getCurrentItem().getType() != null) {
 			evento.setCancelled(true);
 			int i = 1;
 			do {
-				if (evento.getCurrentItem().getTypeId() != Main.plugin.getConfig().getInt("server." + i + ".itemid")
-						|| !evento.getCurrentItem().getItemMeta().getDisplayName().equals(
+				if (event.getCurrentItem().getTypeId() != Main.plugin.getConfig().getInt("server." + i + ".itemid")
+						|| !event.getCurrentItem().getItemMeta().getDisplayName().equals(
 								Main.plugin.getConfig().getString("server." + i + ".display").replace("&", "\u00a7")))
 					continue;
-				Main.enviarPlayer(jogador, Main.plugin.getConfig().getString("server." + i + ".bungee-connect"));
-				jogador.closeInventory();
+				Main.sendPlayer(event, Main.plugin.getConfig().getString("server." + i + ".bungee-connect"));
+				player.closeInventory();
 			} while (++i <= Main.plugin.getConfig().getInt("total-servers"));
 		}
 	}
 
 	@EventHandler
-	private void aoEntrar(PlayerJoinEvent evento) {
-		final Player jogador = evento.getPlayer();
+	private void onJoin(PlayerJoinEvent event) {
+		final Player player = event.getPlayer();
 		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				;
-				if (jogador.getWorld().getName().equalsIgnoreCase(Main.plugin.getConfig().getString("compass-world"))) {
+				if (player.getWorld().getName().equalsIgnoreCase(Main.plugin.getConfig().getString("compass-world"))) {
 					if (Main.plugin.getConfig().getBoolean("join-compass")) {
 						ItemStack stack = new ItemStack(Material.COMPASS);
 						ItemMeta meta = stack.getItemMeta();
 						meta.setDisplayName(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"));
 						stack.setItemMeta(meta);
-						jogador.getInventory().setItem(Main.plugin.getConfig().getInt("player-slot"), stack);
+						player.getInventory().setItem(Main.plugin.getConfig().getInt("player-slot"), stack);
 					}
 				}
 
@@ -97,20 +95,18 @@ public class Eventos implements Listener {
 	}
 
 	@EventHandler
-	private void aoSwith(PlayerChangedWorldEvent evento) {
-		final Player jogador = evento.getPlayer();
+	private void onSwitch(PlayerChangedWorldEvent event) {
+		final Player player = event.getPlayer();
 		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
-
 			@Override
 			public void run() {
-				
-				if (jogador.getWorld().getName().equalsIgnoreCase(Main.plugin.getConfig().getString("compass-world"))) {
+				if (player.getWorld().getName().equalsIgnoreCase(Main.plugin.getConfig().getString("compass-world"))) {
 					if (Main.plugin.getConfig().getBoolean("join-compass")) {
 						ItemStack stack = new ItemStack(Material.COMPASS);
 						ItemMeta meta = stack.getItemMeta();
 						meta.setDisplayName(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"));
 						stack.setItemMeta(meta);
-						jogador.getInventory().setItem(Main.plugin.getConfig().getInt("player-slot"), stack);
+						player.getInventory().setItem(Main.plugin.getConfig().getInt("player-slot"), stack);
 					}
 				}
 			}
@@ -118,19 +114,19 @@ public class Eventos implements Listener {
 	}
 
 	@EventHandler
-	private void aoClicar(PlayerInteractEvent evento) {
-		if (evento.getPlayer().getItemInHand().getType() == Material.COMPASS
-				&& evento.getPlayer().hasPermission("bungeecompass.use")
-				&& evento.getPlayer().getItemInHand().getItemMeta().getDisplayName()
+	private void onClick(PlayerInteractEvent event) {
+		if (event.getPlayer().getItemInHand().getType() == Material.COMPASS
+				&& event.getPlayer().hasPermission("bungeecompass.use")
+				&& event.getPlayer().getItemInHand().getItemMeta().getDisplayName()
 						.equals(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"))) {
 			evento.setCancelled(true);
-			new me.netindev.utils.Seletor(evento.getPlayer());
+			new me.netindev.utils.Seletor(event.getPlayer());
 		}
 	}
 
 	@EventHandler
-	private void aoDropar(PlayerDropItemEvent evento) {
-		if (evento.getItemDrop().getItemStack().getType() == Material.COMPASS
+	private void onDrop(PlayerDropItemEvent event) {
+		if (event.getItemDrop().getItemStack().getType() == Material.COMPASS
 				&& evento.getItemDrop().getItemStack().getItemMeta().getDisplayName()
 						.equals(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"))
 				&& !Main.plugin.getConfig().getBoolean("compass-drop")) {
@@ -139,12 +135,12 @@ public class Eventos implements Listener {
 	}
 	
 	@EventHandler
-	private void aoMove(InventoryClickEvent evento){
-		ItemStack item = evento.getCurrentItem();
+	private void onMove(InventoryClickEvent event){
+		ItemStack item = event.getCurrentItem();
 		if (item != null){
 			if (item.getType() == Material.COMPASS && item.getItemMeta().getDisplayName()
 					.equals(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"))) {
-				evento.setCancelled(true);
+				event.setCancelled(true);
 			}
 		}
 		
