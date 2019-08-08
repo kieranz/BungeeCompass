@@ -39,18 +39,18 @@ extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
-        this.getCommand("bungeecompass").setExecutor((CommandExecutor)new Comando());
-        this.getServer().getPluginManager().registerEvents((Listener)new Eventos(this), (Plugin)this);
+        this.getCommand("bungeecompass").setExecutor(new Commands());
+        this.getServer().getPluginManager().registerEvents(new Events(this), this);
         this.saveDefaultConfig();
-        this.getServer().getMessenger().registerOutgoingPluginChannel((Plugin)this, "BungeeCord");
-        this.getLogger().info("/ Plugin enabled, V: " + this.getDescription().getVersion() + ", created by: netindev.");
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getLogger().info(ChatColor.GREEN + "\n\nBungeeCompass Enabled\n\n");
     }
 
-    public static void enviarPlayer(Player jogador, String server) {
+    public static void sendPlayer(Player player, String server) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Connect");
         out.writeUTF(server);
-        jogador.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
     }
 }
 
