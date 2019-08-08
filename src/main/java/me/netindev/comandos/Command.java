@@ -19,8 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
-public class Command
-implements CommandExecutor {
+public class Command implements CommandExecutor {
+
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             if (args.length == 0 || args.length > 1) {
