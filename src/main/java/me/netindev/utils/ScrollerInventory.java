@@ -1,10 +1,10 @@
-public class ScrollerInventory{
+public class ScrollerInventory {
 
     public ArrayList<Inventory> pages = new ArrayList<Inventory>();
     public UUID id;
     public int currpage = 0;
     public static HashMap<UUID, ScrollerInventory> users = new HashMap<UUID, ScrollerInventory>();
-    public ScrollerInventory(ArrayList<ItemStack> items, String name, Player p){
+    public ScrollerInventory(ArrayList<ItemStack> items, String name, Player p) {
         this.id = UUID.randomUUID();
         Inventory page = getBlankPage(name);
         for (int i = 0;i < items.size(); i++){
@@ -26,7 +26,7 @@ public class ScrollerInventory{
 
    public static final String nextPageName = ChatColor.AQUA + "Next Page";
    public static final String previousPageName = ChatColor.AQUA + "Previous Page";
-   private Inventory getBlankPage(String name) {
+   public Inventory getBlankPage(String name) {
        Inventory page = Bukkit.createInventory(null, 54, name);
 
        ItemStack nextpage =  new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 5);
