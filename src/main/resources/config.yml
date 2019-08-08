@@ -1,7 +1,7 @@
 #Multiple of 9;
-inv-size: 9
+inv-size: 27
 total-servers: 3
-inv-name: '&2Servers:'
+inv-name: '&2Servers'
 join-compass: true
 compass-name: '&2Servers'
 player-slot: 4
