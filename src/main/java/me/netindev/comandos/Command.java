@@ -51,7 +51,7 @@ implements CommandExecutor {
                     }
                 }
             } else {
-                jogador.sendMessage("\u00a7cNo permission.");
+                player.sendMessage("\u00a7cNo permission.");
             }
         }
         return false;
