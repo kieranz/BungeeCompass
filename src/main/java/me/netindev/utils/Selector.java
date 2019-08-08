@@ -28,7 +28,8 @@ import org.bukkit.plugin.Plugin;
 
 public class Seletor {
     public Seletor(Player player) {
-        Inventory inv = Bukkit.createInventory((InventoryHolder) player, (int)Main.plugin.getConfig().getInt("inv-size"), (String) Main.plugin.getConfig().getString("inv-name").replace("&", "\u00a7"));
+        ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+
         int i = 1;
         do {
             ItemStack stack = new ItemStack(Main.plugin.getConfig().getInt("server." + i + ".itemid"));
@@ -39,9 +40,10 @@ public class Seletor {
             }
             stack.setItemMeta(meta);
             stack.setAmount(Main.plugin.getConfig().getInt("server." + i + ".itemamount"));
-            inv.setItem(Main.plugin.getConfig().getInt("server." + i + ".invslot"), stack);
+            items.add(stack);
         } while (++i <= Main.plugin.getConfig().getInt("total-servers"));
-        player.openInventory(inv);
+        
+        ScrollerInventory(items, "First Scroller Inventory", player);
     }
 }
 
