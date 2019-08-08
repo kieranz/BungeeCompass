@@ -29,14 +29,20 @@ public class ScrollerInventory {
    public Inventory getBlankPage(String name) {
        Inventory page = Bukkit.createInventory(null, 54, name);
 
-       ItemStack nextpage =  new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 5);
+       ItemStack nextpage = XMaterial.valueOf(LIME_STAINED_GLASS_PANE).parseItem();
+       nextpage.setAmount(1);
+
        ItemMeta meta = nextpage.getItemMeta();
        meta.setDisplayName(nextPageName);
+
        nextpage.setItemMeta(meta);
 
-       ItemStack prevpage = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 2);
+       ItemStack prevpage = XMaterial.fromString(RED_STAINED_GLASS_PANE).parseItem();
+       prevpage.setAmount(1);
+
        meta = prevpage.getItemMeta();
        meta.setDisplayName(previousPageName);
+
        prevpage.setItemMeta(meta);
 
 
