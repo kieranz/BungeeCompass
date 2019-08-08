@@ -46,7 +46,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-public class Eventos implements Listener {
+public class Events implements Listener {
 
 	Main plugin;
 
@@ -58,8 +58,8 @@ public class Eventos implements Listener {
 	private void onClickInventory(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 		if (event.getInventory().getName().equals(Main.plugin.getConfig().getString("inv-name").replace("&", "\u00a7"))
-				&& evento.getCurrentItem() != null && evento.getCurrentItem().getType() != null) {
-			evento.setCancelled(true);
+				&& event.getCurrentItem() != null && event.getCurrentItem().getType() != null) {
+			event.setCancelled(true);
 			int i = 1;
 			do {
 				if (event.getCurrentItem().getTypeId() != Main.plugin.getConfig().getInt("server." + i + ".itemid")
@@ -119,7 +119,7 @@ public class Eventos implements Listener {
 				&& event.getPlayer().hasPermission("bungeecompass.use")
 				&& event.getPlayer().getItemInHand().getItemMeta().getDisplayName()
 						.equals(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"))) {
-			evento.setCancelled(true);
+			event.setCancelled(true);
 			new me.netindev.utils.Seletor(event.getPlayer());
 		}
 	}
@@ -127,10 +127,10 @@ public class Eventos implements Listener {
 	@EventHandler
 	private void onDrop(PlayerDropItemEvent event) {
 		if (event.getItemDrop().getItemStack().getType() == Material.COMPASS
-				&& evento.getItemDrop().getItemStack().getItemMeta().getDisplayName()
+				&& event.getItemDrop().getItemStack().getItemMeta().getDisplayName()
 						.equals(Main.plugin.getConfig().getString("compass-name").replace("&", "\u00a7"))
 				&& !Main.plugin.getConfig().getBoolean("compass-drop")) {
-			evento.setCancelled(true);
+			event.setCancelled(true);
 		}
 	}
 	
